@@ -1,0 +1,48 @@
+{
+  "id": 7,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Backward Scroll",
+  "difficulty": "medium",
+  "type": "build-from-scratch",
+  "theme": "pixel-retro",
+  "xpReward": 130,
+  "story": "An ancient scroll can only be read backwards! Help the librarian reverse any text to reveal its secrets. 📜✨",
+  "instructions": "Build a function `reverseString` that takes a string and returns it reversed. Example: 'hello' → 'olleh'",
+  "starterCode": "function reverseString(str) {\n  // TODO: Reverse the string\n  // Hint: You can split, reverse, and join!\n  \n}",
+  "solution": "function reverseString(str) {\n  return str.split('').reverse().join('');\n}",
+  "testCases": [
+    {
+      "input": ["hello"],
+      "expected": "olleh",
+      "description": "Reverse 'hello'"
+    },
+    {
+      "input": ["CodeCraft"],
+      "expected": "tfarCedoC",
+      "description": "Reverse 'CodeCraft'"
+    },
+    {
+      "input": ["a"],
+      "expected": "a",
+      "description": "Single character"
+    },
+    {
+      "input": [""],
+      "expected": "",
+      "description": "Empty string"
+    },
+    {
+      "input": ["12345"],
+      "expected": "54321",
+      "description": "Reverse numbers"
+    }
+  ],
+  "hints": [
+    "🔍 You can convert a string to an array with .split('')",
+    "💡 Arrays have a .reverse() method!",
+    "✨ Use .split('').reverse().join('') to reverse a string"
+  ],
+  "badge": "string-wizard",
+  "nextLevel": 8
+}

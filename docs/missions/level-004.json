@@ -1,0 +1,43 @@
+{
+  "id": 4,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "Counting Coins",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 80,
+  "story": "The merchant's coin counter is broken! Help fix the loop before customers get angry! 💰",
+  "instructions": "The `countCoins` function should count from 1 to n, but the loop has a bug. Fix it!",
+  "starterCode": "function countCoins(n) {\n  let count = 0;\n  for (let i = 0; i < n; i++) { // 🐛 Wrong starting value!\n    count++;\n  }\n  return count;\n}",
+  "solution": "function countCoins(n) {\n  let count = 0;\n  for (let i = 1; i <= n; i++) {\n    count++;\n  }\n  return count;\n}",
+  "testCases": [
+    {
+      "input": [5],
+      "expected": 5,
+      "description": "Count to 5"
+    },
+    {
+      "input": [10],
+      "expected": 10,
+      "description": "Count to 10"
+    },
+    {
+      "input": [1],
+      "expected": 1,
+      "description": "Count to 1"
+    },
+    {
+      "input": [0],
+      "expected": 0,
+      "description": "Count to 0"
+    }
+  ],
+  "hints": [
+    "🔍 The loop starts at 0, but should it? Think about counting from 1!",
+    "💡 Change the starting value of i to 1 and use <= instead of <",
+    "✨ Change 'let i = 0; i < n' to 'let i = 1; i <= n'"
+  ],
+  "badge": "loop-novice",
+  "nextLevel": 5
+}

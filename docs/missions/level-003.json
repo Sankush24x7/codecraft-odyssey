@@ -1,0 +1,43 @@
+{
+  "id": 3,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Greater Number",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 70,
+  "story": "Two numbers are competing to see which is greater. Your task: fix the comparison spell! 🎯",
+  "instructions": "The `findMax` function should return the larger of two numbers. Fix the comparison logic!",
+  "starterCode": "function findMax(a, b) {\n  if (a < b) { // 🐛 Wrong comparison!\n    return a;\n  } else {\n    return b;\n  }\n}",
+  "solution": "function findMax(a, b) {\n  if (a > b) {\n    return a;\n  } else {\n    return b;\n  }\n}",
+  "testCases": [
+    {
+      "input": [5, 3],
+      "expected": 5,
+      "description": "5 is greater than 3"
+    },
+    {
+      "input": [10, 20],
+      "expected": 20,
+      "description": "20 is greater than 10"
+    },
+    {
+      "input": [7, 7],
+      "expected": 7,
+      "description": "Both numbers are equal"
+    },
+    {
+      "input": [-5, -10],
+      "expected": -5,
+      "description": "Testing negative numbers"
+    }
+  ],
+  "hints": [
+    "🔍 Think about what 'maximum' means. Should we return the smaller or larger number?",
+    "💡 If a is GREATER than b, we should return a!",
+    "✨ Change the < to > in the if condition"
+  ],
+  "badge": null,
+  "nextLevel": 4
+}

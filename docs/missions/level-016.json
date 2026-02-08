@@ -1,0 +1,38 @@
+{
+  "id": 16,
+  "world": "backend-roots",
+  "worldId": 2,
+  "title": "HTTP Method Mixer",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "modern",
+  "xpReward": 220,
+  "story": "🏗️ Welcome to Backend Roots! You've entered the world of APIs and servers. Your first task: fix a broken HTTP method handler. The API is returning data for POST when it should be GET!",
+  "instructions": "Fix the `handleRequest` function. It should return 'GET' for GET requests and 'POST' for POST requests, but the logic is reversed!",
+  "starterCode": "function handleRequest(method) {\n  if (method === 'GET') {\n    return 'POST'; // 🐛 Wrong!\n  } else if (method === 'POST') {\n    return 'GET'; // 🐛 Wrong!\n  }\n  return 'UNKNOWN';\n}",
+  "solution": "function handleRequest(method) {\n  if (method === 'GET') {\n    return 'GET';\n  } else if (method === 'POST') {\n    return 'POST';\n  }\n  return 'UNKNOWN';\n}",
+  "testCases": [
+    {
+      "input": ["GET"],
+      "expected": "GET",
+      "description": "GET request"
+    },
+    {
+      "input": ["POST"],
+      "expected": "POST",
+      "description": "POST request"
+    },
+    {
+      "input": ["DELETE"],
+      "expected": "UNKNOWN",
+      "description": "Unknown method"
+    }
+  ],
+  "hints": [
+    "🔍 The method should return itself, not the opposite!",
+    "💡 GET should return 'GET', POST should return 'POST'",
+    "✨ Just return the method parameter directly!"
+  ],
+  "badge": "backend-beginner",
+  "nextLevel": 17
+}
