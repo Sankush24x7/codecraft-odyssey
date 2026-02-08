@@ -1,0 +1,38 @@
+{
+  "id": 2,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "String Spell",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 60,
+  "story": "The town wizard needs help! His greeting spell is broken and everyone is getting strange messages. 🪄",
+  "instructions": "Fix the `greet` function so it properly combines the greeting with the name.",
+  "starterCode": "function greet(name) {\n  return 'Hello, ' + name; // 🐛 Missing something!\n}",
+  "solution": "function greet(name) {\n  return 'Hello, ' + name + '!';\n}",
+  "testCases": [
+    {
+      "input": ["Alice"],
+      "expected": "Hello, Alice!",
+      "description": "Greeting Alice"
+    },
+    {
+      "input": ["Bob"],
+      "expected": "Hello, Bob!",
+      "description": "Greeting Bob"
+    },
+    {
+      "input": ["CodeCraft"],
+      "expected": "Hello, CodeCraft!",
+      "description": "Greeting CodeCraft"
+    }
+  ],
+  "hints": [
+    "🔍 The greeting is missing some punctuation at the end!",
+    "💡 All good greetings end with an exclamation mark!",
+    "✨ Add '!' at the end of the return statement"
+  ],
+  "badge": null,
+  "nextLevel": 3
+}

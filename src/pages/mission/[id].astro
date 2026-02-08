@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../styles/pixel-theme.css';
+
+export function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+    { params: { id: '4' } },
+    { params: { id: '5' } },
+    { params: { id: '6' } },
+    { params: { id: '7' } },
+    { params: { id: '8' } },
+    { params: { id: '9' } },
+    { params: { id: '10' } },
+    { params: { id: '11' } },
+    { params: { id: '12' } },
+    { params: { id: '13' } },
+    { params: { id: '14' } },
+    { params: { id: '15' } }
+  ];
+}
+
+const { id } = Astro.params;
+---
+
+<BaseLayout title={`Level ${id} - CodeCraft Odyssey`}>
+  <div class="theme-pixel scanlines pixel-grid-bg" style="min-height: 100vh; padding: 20px;">
+    
+    <!-- Mission Container -->
+    <div style="max-width: 1400px; margin: 0 auto;">
+      
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
+        
+        <button class="pixel-button secondary" onclick="window.location.href='/map'" style="font-size: 12px;">
+          ← BACK TO MAP
+        </button>
+
+        <div class="health-display">
+          <span style="color: var(--pixel-accent); font-family: var(--font-pixel); font-size: 11px;">LIVES:</span>
+          <div id="healthContainer"></div>
+        </div>
+
+        <div style="font-family: var(--font-pixel); font-size: 11px;">
+          LEVEL <span id="levelNumber"></span>
+        </div>
+      </div>
+
+      <!-- Mission Content Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="mission-grid">
+        
+        <!-- Left Panel: Instructions -->
+        <div class="pixel-card">
+          <div id="missionTitle" class="mission-title"></div>
+          
+          <div id="missionStory" style="font-size: 18px; margin-bottom: 16px; line-height: 1.5; color: var(--pixel-text-dim);"></div>
+          
+          <div style="background: var(--pixel-bg); padding: 16px; border: 3px solid var(--pixel-border); margin-bottom: 16px;">
+            <p style="font-family: var(--font-pixel); font-size: 10px; color: var(--pixel-accent); margin-bottom: 8px;">
+              📜 YOUR MISSION:
+            </p>
+            <p id="missionInstructions" style="font-size: 17px; line-height: 1.6;"></p>
+          </div>
+
+          <!-- Hints -->
+          <div id="hintsContainer" style="margin-bottom: 16px;"></div>
+          
+          <button class="pixel-button secondary" id="hintBtn" style="width: 100%; font-size: 12px;">
+            💡 GET HINT (<span id="hintCount">0</span>/3)
+          </button>
+
+          <!-- Test Results -->
+          <div id="testResults" style="margin-top: 20px; display: none;">
+            <p style="font-family: var(--font-pixel); font-size: 12px; margin-bottom: 12px; color: var(--pixel-accent);">
+              TEST RESULTS:
+            </p>
+            <div id="testList"></div>
+            
+            <div id="resultsummary" style="margin-top: 16px; padding: 16px; border: 4px solid var(--pixel-border);"></div>
+          </div>
+
+        </div>
+
+        <!-- Right Panel: Code Editor -->
+        <div class="pixel-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <p style="font-family: var(--font-pixel); font-size: 11px; color: var(--pixel-accent);">
+              💻 CODE EDITOR
+            </p>
+            <button class="pixel-button" id="resetBtn" style="font-size: 10px; padding: 8px 16px;">
+              🔄 RESET
+            </button>
+          </div>
+
+          <div class="editor-container">
+            <div id="editor"></div>
+          </div>
+
+          <button class="pixel-button accent" id="runBtn" style="width: 100%; margin-top: 16px; font-size: 14px; padding: 16px;">
+            ▶ RUN TESTS
+          </button>
+
+          <!-- Success Modal -->
+          <div id="successModal" style="display: none; margin-top: 20px;">
+            <div class="success-message">
+              <p style="font-size: 20px; margin-bottom: 12px;">🎉 MISSION COMPLETE! 🎉</p>
+              <p style="font-size: 16px; margin-bottom: 8px;">
+                +<span id="xpEarned">0</span> XP
+              </p>
+              <p id="badgeEarned" style="font-size: 14px; margin-bottom: 16px;"></p>
+              <button class="pixel-button" id="nextBtn" style="font-size: 14px;">
+                → NEXT MISSION
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    import { EditorView, basicSetup } from 'codemirror';
+    import { javascript } from '@codemirror/lang-javascript';
+    import { oneDark } from '@codemirror/theme-one-dark';
+    import { getGameState } from '../../scripts/gameState.js';
+    import { TestValidator } from '../../scripts/validator.js';
+
+    // Get mission ID from URL
+    const pathParts = window.location.pathname.split('/');
+    const missionId = parseInt(pathParts[pathParts.length - 1]);
+
+    // Game state
+    const gameState = getGameState();
+    let currentMission = null;
+    let editor = null;
+    let hintsUsed = 0;
+    let startTime = Date.now();
+
+    // Load mission data
+    async function loadMission() {
+      try {
+        const response = await fetch(`/missions/level-${String(missionId).padStart(3, '0')}.json`);
+        currentMission = await response.json();
+        
+        // Update UI
+        document.getElementById('levelNumber').textContent = currentMission.id;
+        document.getElementById('missionTitle').textContent = `${currentMission.title}`;
+        document.getElementById('missionStory').textContent = currentMission.story;
+        document.getElementById('missionInstructions').textContent = currentMission.instructions;
+        
+        // Initialize editor
+        initEditor(currentMission.starterCode);
+        
+        // Update health
+        updateHealth();
+        
+      } catch (error) {
+        console.error('Failed to load mission:', error);
+        alert('Mission not found!');
+        window.location.href = '/map';
+      }
+    }
+
+    // Initialize CodeMirror editor
+    function initEditor(code) {
+      editor = new EditorView({
+        doc: code,
+        extensions: [
+          basicSetup,
+          javascript(),
+          oneDark,
+          EditorView.lineWrapping,
+          EditorView.updateListener.of((update) => {
+            // Auto-save to localStorage could go here
+          })
+        ],
+        parent: document.getElementById('editor')
+      });
+    }
+
+    // Update health display
+    function updateHealth() {
+      const state = gameState.get();
+      const healthContainer = document.getElementById('healthContainer');
+      healthContainer.innerHTML = '';
+      
+      for (let i = 0; i < state.maxHealth; i++) {
+        const heart = document.createElement('span');
+        heart.className = i < state.health ? 'heart full' : 'heart empty';
+        heart.textContent = '♥';
+        healthContainer.appendChild(heart);
+      }
+    }
+
+    // Run tests
+    document.getElementById('runBtn').addEventListener('click', () => {
+      const userCode = editor.state.doc.toString();
+      const validator = new TestValidator(currentMission.testCases);
+      const results = validator.validate(userCode);
+      
+      // Display results
+      displayTestResults(results);
+      
+      if (results.success) {
+        // Calculate XP
+        const timeSeconds = Math.floor((Date.now() - startTime) / 1000);
+        const speedBonus = timeSeconds < 120;
+        const noHintsBonus = hintsUsed === 0;
+        const xpEarned = validator.calculateXP(results, currentMission.xpReward, speedBonus, noHintsBonus);
+        
+        // Show success
+        showSuccess(xpEarned);
+        
+        // Save progress
+        gameState.completeLevel(missionId, xpEarned, timeSeconds, hintsUsed);
+        
+      } else {
+        // Take damage
+        const health = gameState.takeDamage();
+        updateHealth();
+        
+        if (health === 0) {
+          alert('💔 Out of lives! Restarting mission...');
+          gameState.resetHealth();
+          window.location.reload();
+        }
+      }
+    });
+
+    // Display test results
+    function displayTestResults(results) {
+      const testResults = document.getElementById('testResults');
+      const testList = document.getElementById('testList');
+      const resultSummary = document.getElementById('resultsummary');
+      
+      testResults.style.display = 'block';
+      testList.innerHTML = '';
+      
+      results.details.forEach(test => {
+        const div = document.createElement('div');
+        div.className = `test-result ${test.passed ? 'passed' : 'failed'}`;
+        div.innerHTML = `
+          <span class="test-icon">${test.passed ? '✓' : '✗'}</span>
+          <div style="flex: 1;">
+            <div style="font-size: 16px;">Test ${test.testNumber}</div>
+            <div style="font-size: 14px; color: var(--pixel-text-dim);">
+              Input: ${JSON.stringify(test.input)} → 
+              Expected: ${JSON.stringify(test.expected)} → 
+              Got: ${JSON.stringify(test.actual)}
+            </div>
+            ${test.error ? `<div style="color: var(--pixel-danger); font-size: 14px;">Error: ${test.error}</div>` : ''}
+          </div>
+        `;
+        testList.appendChild(div);
+      });
+      
+      // Summary
+      resultSummary.style.background = results.success ? 'rgba(74, 222, 128, 0.2)' : 'rgba(248, 113, 113, 0.2)';
+      resultSummary.style.borderColor = results.success ? 'var(--pixel-primary)' : 'var(--pixel-danger)';
+      resultSummary.innerHTML = `
+        <p style="font-family: var(--font-pixel); font-size: 14px; color: ${results.success ? 'var(--pixel-primary)' : 'var(--pixel-danger)'};">
+          ${results.success ? '✅ ALL TESTS PASSED!' : '❌ SOME TESTS FAILED'}
+        </p>
+        <p style="font-size: 16px; margin-top: 8px;">
+          ${results.passed} / ${results.total} tests passed
+        </p>
+      `;
+    }
+
+    // Show success modal
+    function showSuccess(xpEarned) {
+      const modal = document.getElementById('successModal');
+      document.getElementById('xpEarned').textContent = xpEarned;
+      
+      if (currentMission.badge) {
+        document.getElementById('badgeEarned').innerHTML = `
+          <div class="badge">🏆 ${currentMission.badge.toUpperCase()}</div>
+        `;
+      }
+      
+      modal.style.display = 'block';
+    }
+
+    // Next mission button
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (currentMission.nextLevel) {
+        window.location.href = `/mission/${currentMission.nextLevel}`;
+      } else {
+        window.location.href = '/map';
+      }
+    });
+
+    // Hint button
+    document.getElementById('hintBtn').addEventListener('click', () => {
+      if (hintsUsed >= currentMission.hints.length) {
+        alert('No more hints available!');
+        return;
+      }
+      
+      const hint = currentMission.hints[hintsUsed];
+      const hintBox = document.createElement('div');
+      hintBox.className = 'hint-box';
+      hintBox.textContent = `Hint ${hintsUsed + 1}: ${hint}`;
+      
+      document.getElementById('hintsContainer').appendChild(hintBox);
+      hintsUsed++;
+      document.getElementById('hintCount').textContent = hintsUsed;
+      
+      if (hintsUsed >= currentMission.hints.length) {
+        document.getElementById('hintBtn').disabled = true;
+        document.getElementById('hintBtn').style.opacity = '0.5';
+      }
+    });
+
+    // Reset button
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('Reset code to original? This will lose your current progress.')) {
+        editor.dispatch({
+          changes: {
+            from: 0,
+            to: editor.state.doc.length,
+            insert: currentMission.starterCode
+          }
+        });
+      }
+    });
+
+    // Load mission on page load
+    loadMission();
+  </script>
+
+  <style>
+    .mission-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 968px) {
+      .mission-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    #editor {
+      min-height: 400px;
+      font-size: 16px;
+    }
+
+    .cm-editor {
+      height: 100%;
+    }
+
+    .cm-scroller {
+      overflow: auto;
+    }
+  </style>
+</BaseLayout>

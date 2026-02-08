@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The First Spell",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 50,
+  "story": "Welcome, brave developer! 🧙‍♂️ Your first quest awaits. A simple spell has been broken by a mischievous bug. Can you fix it?",
+  "instructions": "The `addNumbers` function should return the sum of two numbers, but something's wrong! Fix the bug to pass all tests.",
+  "starterCode": "function addNumbers(a, b) {\n  return a - b; // 🐛 Bug here!\n}",
+  "solution": "function addNumbers(a, b) {\n  return a + b;\n}",
+  "testCases": [
+    {
+      "input": [2, 3],
+      "expected": 5,
+      "description": "Adding 2 + 3"
+    },
+    {
+      "input": [10, 25],
+      "expected": 35,
+      "description": "Adding 10 + 25"
+    },
+    {
+      "input": [0, 0],
+      "expected": 0,
+      "description": "Adding 0 + 0"
+    },
+    {
+      "input": [-5, 5],
+      "expected": 0,
+      "description": "Adding -5 + 5"
+    }
+  ],
+  "hints": [
+    "🔍 Look at the operator being used. Is it correct for addition?",
+    "💡 The minus sign (-) subtracts. You need to ADD the numbers!",
+    "✨ Change the - to a + operator!"
+  ],
+  "badge": "first-steps",
+  "nextLevel": 2
+}

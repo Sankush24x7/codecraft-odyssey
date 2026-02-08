@@ -1,0 +1,48 @@
+{
+  "id": 6,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Even Odd Oracle",
+  "difficulty": "easy",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 110,
+  "story": "The village oracle's divination spell can't tell even from odd! The crops depend on knowing which days to plant. Fix the magic! 🔮",
+  "instructions": "The `isEven` function should return true if a number is even, false if odd. Fix the modulo operator!",
+  "starterCode": "function isEven(num) {\n  return num % 3 === 0; // 🐛 Wrong divisor!\n}",
+  "solution": "function isEven(num) {\n  return num % 2 === 0;\n}",
+  "testCases": [
+    {
+      "input": [4],
+      "expected": true,
+      "description": "4 is even"
+    },
+    {
+      "input": [7],
+      "expected": false,
+      "description": "7 is odd"
+    },
+    {
+      "input": [0],
+      "expected": true,
+      "description": "0 is even"
+    },
+    {
+      "input": [101],
+      "expected": false,
+      "description": "101 is odd"
+    },
+    {
+      "input": [-2],
+      "expected": true,
+      "description": "-2 is even"
+    }
+  ],
+  "hints": [
+    "🔍 Even numbers are divisible by 2, not 3!",
+    "💡 Use modulo 2 (num % 2) to check if divisible by 2",
+    "✨ Change % 3 to % 2"
+  ],
+  "badge": null,
+  "nextLevel": 7
+}

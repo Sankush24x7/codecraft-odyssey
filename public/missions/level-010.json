@@ -1,0 +1,48 @@
+{
+  "id": 10,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Mirror Words",
+  "difficulty": "medium",
+  "type": "build-from-scratch",
+  "theme": "pixel-retro",
+  "xpReward": 160,
+  "story": "The enchanted mirror only reveals secrets to palindromes - words that read the same forwards and backwards! Help identify them! 🪞",
+  "instructions": "Create `isPalindrome` function that returns true if a string is a palindrome, false otherwise. Example: 'racecar' is a palindrome, 'hello' is not.",
+  "starterCode": "function isPalindrome(str) {\n  // TODO: Check if string reads same forwards and backwards\n  // Hint: Compare string with its reverse!\n  \n}",
+  "solution": "function isPalindrome(str) {\n  const reversed = str.split('').reverse().join('');\n  return str === reversed;\n}",
+  "testCases": [
+    {
+      "input": ["racecar"],
+      "expected": true,
+      "description": "'racecar' is a palindrome"
+    },
+    {
+      "input": ["hello"],
+      "expected": false,
+      "description": "'hello' is not a palindrome"
+    },
+    {
+      "input": ["a"],
+      "expected": true,
+      "description": "Single character is palindrome"
+    },
+    {
+      "input": ["noon"],
+      "expected": true,
+      "description": "'noon' is a palindrome"
+    },
+    {
+      "input": ["12321"],
+      "expected": true,
+      "description": "'12321' is a palindrome"
+    }
+  ],
+  "hints": [
+    "🔍 Reverse the string and compare it to the original",
+    "💡 Use .split('').reverse().join('') to reverse",
+    "✨ Return str === reversed"
+  ],
+  "badge": "palindrome-expert",
+  "nextLevel": 11
+}

@@ -1,0 +1,58 @@
+{
+  "id": 15,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "⚔️ BOSS FIGHT: The Data Dragon ⚔️",
+  "difficulty": "hard",
+  "type": "hybrid",
+  "theme": "pixel-retro",
+  "xpReward": 500,
+  "story": "🐉 A fearsome Data Dragon guards the exit from Novice Plains! To defeat it, you must complete THREE challenges in ONE function. The dragon has corrupted user data - you must clean, validate, and transform it! This is your final test before advancing to API Citadel! ⚔️",
+  "instructions": "Create a function `cleanUserData` that:\n1. Removes extra spaces (trim)\n2. Capitalizes first letter of name\n3. Returns object: { name: cleaned name, valid: true if name not empty }\n\nExample: '  john  ' → { name: 'John', valid: true }",
+  "starterCode": "function cleanUserData(rawName) {\n  // TODO: Complete all 3 tasks!\n  // 1. Trim spaces\n  // 2. Capitalize first letter\n  // 3. Return object with name and valid status\n  \n}",
+  "solution": "function cleanUserData(rawName) {\n  const trimmed = rawName.trim();\n  if (trimmed.length === 0) {\n    return { name: '', valid: false };\n  }\n  const capitalized = trimmed[0].toUpperCase() + trimmed.slice(1).toLowerCase();\n  return { name: capitalized, valid: true };\n}",
+  "testCases": [
+    {
+      "input": ["  john  "],
+      "expected": { "name": "John", "valid": true },
+      "description": "Clean '  john  '"
+    },
+    {
+      "input": ["ALICE"],
+      "expected": { "name": "Alice", "valid": true },
+      "description": "Clean 'ALICE'"
+    },
+    {
+      "input": ["   "],
+      "expected": { "name": "", "valid": false },
+      "description": "Empty after trim"
+    },
+    {
+      "input": ["bOb"],
+      "expected": { "name": "Bob", "valid": true },
+      "description": "Clean 'bOb'"
+    },
+    {
+      "input": ["  CHARLIE  "],
+      "expected": { "name": "Charlie", "valid": true },
+      "description": "Clean '  CHARLIE  '"
+    },
+    {
+      "input": [""],
+      "expected": { "name": "", "valid": false },
+      "description": "Empty string"
+    },
+    {
+      "input": ["x"],
+      "expected": { "name": "X", "valid": true },
+      "description": "Single character"
+    }
+  ],
+  "hints": [
+    "🔍 Step 1: Use .trim() to remove spaces from both ends",
+    "💡 Step 2: Check if empty (length === 0) and return {name: '', valid: false}",
+    "✨ Step 3: Capitalize with [0].toUpperCase() + .slice(1).toLowerCase(), return {name: result, valid: true}"
+  ],
+  "badge": "dragon-slayer",
+  "nextLevel": 16
+}
