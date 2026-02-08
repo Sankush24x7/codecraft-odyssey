@@ -1,0 +1,48 @@
+{
+  "id": 5,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "Array Spell Debugger",
+  "difficulty": "medium",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 100,
+  "story": "The wizard's spell list is broken! The array loop goes out of bounds and causes potions to explode! 🧙‍♂️💥 Fix it before disaster strikes!",
+  "instructions": "The `sumArray` function should sum all numbers in an array, but it crashes! Find and fix the off-by-one error.",
+  "starterCode": "function sumArray(arr) {\n  let total = 0;\n  for (let i = 0; i <= arr.length; i++) { // 🐛 Array out of bounds!\n    total += arr[i];\n  }\n  return total;\n}",
+  "solution": "function sumArray(arr) {\n  let total = 0;\n  for (let i = 0; i < arr.length; i++) {\n    total += arr[i];\n  }\n  return total;\n}",
+  "testCases": [
+    {
+      "input": [[1, 2, 3]],
+      "expected": 6,
+      "description": "Sum of [1,2,3]"
+    },
+    {
+      "input": [[10, 20, 30]],
+      "expected": 60,
+      "description": "Sum of [10,20,30]"
+    },
+    {
+      "input": [[5]],
+      "expected": 5,
+      "description": "Single element array"
+    },
+    {
+      "input": [[]],
+      "expected": 0,
+      "description": "Empty array"
+    },
+    {
+      "input": [[-5, 5, 10]],
+      "expected": 10,
+      "description": "Array with negative numbers"
+    }
+  ],
+  "hints": [
+    "🔍 Array indices go from 0 to length-1. Check your loop condition!",
+    "💡 When i equals arr.length, you're accessing an index that doesn't exist!",
+    "✨ Change <= to < in the loop condition"
+  ],
+  "badge": "array-master",
+  "nextLevel": 6
+}

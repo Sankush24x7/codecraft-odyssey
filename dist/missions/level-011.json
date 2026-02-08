@@ -1,0 +1,48 @@
+{
+  "id": 11,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The FizzBuzz Ritual",
+  "difficulty": "medium",
+  "type": "build-from-scratch",
+  "theme": "pixel-retro",
+  "xpReward": 170,
+  "story": "The village children play a counting game: Fizz for multiples of 3, Buzz for 5, FizzBuzz for both! Code the ancient ritual! 🎊",
+  "instructions": "Create `fizzBuzz` that returns: 'Fizz' if n divisible by 3, 'Buzz' if by 5, 'FizzBuzz' if by both, otherwise the number as a string.",
+  "starterCode": "function fizzBuzz(n) {\n  // TODO: Implement FizzBuzz logic\n  // Check divisibility by 3, 5, or both!\n  \n}",
+  "solution": "function fizzBuzz(n) {\n  if (n % 15 === 0) return 'FizzBuzz';\n  if (n % 3 === 0) return 'Fizz';\n  if (n % 5 === 0) return 'Buzz';\n  return String(n);\n}",
+  "testCases": [
+    {
+      "input": [3],
+      "expected": "Fizz",
+      "description": "3 is divisible by 3"
+    },
+    {
+      "input": [5],
+      "expected": "Buzz",
+      "description": "5 is divisible by 5"
+    },
+    {
+      "input": [15],
+      "expected": "FizzBuzz",
+      "description": "15 is divisible by both"
+    },
+    {
+      "input": [7],
+      "expected": "7",
+      "description": "7 is not divisible by 3 or 5"
+    },
+    {
+      "input": [30],
+      "expected": "FizzBuzz",
+      "description": "30 is divisible by both"
+    }
+  ],
+  "hints": [
+    "🔍 Check for divisibility by 15 FIRST (both 3 and 5)",
+    "💡 Then check for 3, then 5, then return the number",
+    "✨ Use % operator and if/else statements"
+  ],
+  "badge": "fizzbuzz-champion",
+  "nextLevel": 12
+}

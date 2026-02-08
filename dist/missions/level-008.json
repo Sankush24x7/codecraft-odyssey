@@ -1,0 +1,48 @@
+{
+  "id": 8,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Tallest Tower",
+  "difficulty": "medium",
+  "type": "build-from-scratch",
+  "theme": "pixel-retro",
+  "xpReward": 140,
+  "story": "The king wants to know which tower is the tallest in his kingdom! Given an array of tower heights, find the maximum. 🏰",
+  "instructions": "Create a function `findMax` that finds the largest number in an array. Don't use Math.max()!",
+  "starterCode": "function findMax(arr) {\n  // TODO: Find the maximum number\n  // Loop through and track the largest!\n  \n}",
+  "solution": "function findMax(arr) {\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > max) {\n      max = arr[i];\n    }\n  }\n  return max;\n}",
+  "testCases": [
+    {
+      "input": [[1, 5, 3, 9, 2]],
+      "expected": 9,
+      "description": "Max of [1,5,3,9,2]"
+    },
+    {
+      "input": [[10]],
+      "expected": 10,
+      "description": "Single element"
+    },
+    {
+      "input": [[-5, -2, -10, -1]],
+      "expected": -1,
+      "description": "All negative numbers"
+    },
+    {
+      "input": [[100, 200, 150, 200]],
+      "expected": 200,
+      "description": "Duplicate max values"
+    },
+    {
+      "input": [[0, 0, 0, 1, 0]],
+      "expected": 1,
+      "description": "Mostly zeros"
+    }
+  ],
+  "hints": [
+    "🔍 Start by assuming the first element is the maximum",
+    "💡 Loop through the array and compare each element to your current max",
+    "✨ If you find a larger number, update your max variable!"
+  ],
+  "badge": null,
+  "nextLevel": 9
+}

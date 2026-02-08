@@ -1,0 +1,48 @@
+{
+  "id": 12,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Vowel Counter",
+  "difficulty": "medium",
+  "type": "build-from-scratch",
+  "theme": "pixel-retro",
+  "xpReward": 180,
+  "story": "The bard's song spell needs to count vowels to maintain the rhythm! Help count a, e, i, o, u in any text. 🎵",
+  "instructions": "Create `countVowels` that counts how many vowels (a, e, i, o, u) are in a string. Case insensitive!",
+  "starterCode": "function countVowels(str) {\n  // TODO: Count vowels in the string\n  // Hint: Loop through and check each character!\n  \n}",
+  "solution": "function countVowels(str) {\n  const vowels = 'aeiouAEIOU';\n  let count = 0;\n  for (let char of str) {\n    if (vowels.includes(char)) {\n      count++;\n    }\n  }\n  return count;\n}",
+  "testCases": [
+    {
+      "input": ["hello"],
+      "expected": 2,
+      "description": "'hello' has 2 vowels (e, o)"
+    },
+    {
+      "input": ["CodeCraft"],
+      "expected": 3,
+      "description": "'CodeCraft' has 3 vowels"
+    },
+    {
+      "input": ["aeiou"],
+      "expected": 5,
+      "description": "All vowels"
+    },
+    {
+      "input": ["bcdfg"],
+      "expected": 0,
+      "description": "No vowels"
+    },
+    {
+      "input": ["HELLO"],
+      "expected": 2,
+      "description": "Uppercase vowels count too"
+    }
+  ],
+  "hints": [
+    "🔍 Create a string with all vowels: 'aeiouAEIOU'",
+    "💡 Loop through each character and check if it's in the vowels string",
+    "✨ Use .includes() to check if character is a vowel"
+  ],
+  "badge": null,
+  "nextLevel": 13
+}

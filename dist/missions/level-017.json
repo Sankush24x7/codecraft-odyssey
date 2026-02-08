@@ -1,0 +1,47 @@
+{
+  "id": 17,
+  "world": "backend-roots",
+  "worldId": 2,
+  "title": "Status Code Decoder",
+  "difficulty": "easy",
+  "type": "build-from-scratch",
+  "theme": "modern",
+  "xpReward": 230,
+  "story": "Learn HTTP status codes! Return the meaning: 200\u2192OK, 404\u2192Not Found, 500\u2192Server Error.",
+  "instructions": "Create getStatusMessage(code) that returns status text for common HTTP codes.",
+  "starterCode": "function getStatusMessage(code) {\n  // TODO: Return status message\n}",
+  "solution": "function getStatusMessage(code) {\n  if (code === 200) return 'OK';\n  if (code === 404) return 'Not Found';\n  if (code === 500) return 'Server Error';\n  return 'Unknown';\n}",
+  "testCases": [
+    {
+      "input": [
+        200
+      ],
+      "expected": "OK"
+    },
+    {
+      "input": [
+        404
+      ],
+      "expected": "Not Found"
+    },
+    {
+      "input": [
+        500
+      ],
+      "expected": "Server Error"
+    },
+    {
+      "input": [
+        301
+      ],
+      "expected": "Unknown"
+    }
+  ],
+  "hints": [
+    "Use if/else for each code",
+    "200=OK, 404=Not Found, 500=Server Error",
+    "Return 'Unknown' for others"
+  ],
+  "badge": null,
+  "nextLevel": 18
+}

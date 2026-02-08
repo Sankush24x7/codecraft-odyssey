@@ -1,0 +1,48 @@
+{
+  "id": 14,
+  "world": "novice-plains",
+  "worldId": 1,
+  "title": "The Royal Proclamation",
+  "difficulty": "medium",
+  "type": "fix-the-code",
+  "theme": "pixel-retro",
+  "xpReward": 200,
+  "story": "All royal proclamations must start with a capital letter, but the scribe's quill is broken! Fix the capitalization spell! 👑",
+  "instructions": "Fix the `capitalize` function to properly capitalize the first letter of a string and lowercase the rest.",
+  "starterCode": "function capitalize(str) {\n  return str[0].toLowerCase() + str.slice(1).toUpperCase(); // 🐛 Backwards!\n}",
+  "solution": "function capitalize(str) {\n  return str[0].toUpperCase() + str.slice(1).toLowerCase();\n}",
+  "testCases": [
+    {
+      "input": ["hello"],
+      "expected": "Hello",
+      "description": "Capitalize 'hello'"
+    },
+    {
+      "input": ["WORLD"],
+      "expected": "World",
+      "description": "Fix 'WORLD'"
+    },
+    {
+      "input": ["javaScript"],
+      "expected": "Javascript",
+      "description": "Fix 'javaScript'"
+    },
+    {
+      "input": ["a"],
+      "expected": "A",
+      "description": "Single character"
+    },
+    {
+      "input": ["cODEcRAFT"],
+      "expected": "Codecraft",
+      "description": "Fix 'cODEcRAFT'"
+    }
+  ],
+  "hints": [
+    "🔍 The first letter should be UPPERCASE, the rest lowercase",
+    "💡 Currently it's doing the opposite!",
+    "✨ Swap .toLowerCase() and .toUpperCase()"
+  ],
+  "badge": "text-transformer",
+  "nextLevel": 15
+}
